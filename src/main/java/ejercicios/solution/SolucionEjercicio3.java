@@ -19,6 +19,10 @@ public class SolucionEjercicio3 {
 		return new SolucionEjercicio3(gs.objVal, gs.values);
 	}	
 	
+	public static SolucionEjercicio3 create(List<Integer> value) {
+		return new SolucionEjercicio3(value);
+	}
+	
 	private SolucionEjercicio3(Double vo, Map<String, Double> vbles) {
 		productos = List2.empty();
 		beneficio = 0.;
@@ -28,7 +32,20 @@ public class SolucionEjercicio3 {
 				var info_x = Integer.parseInt(data.getKey().split("_")[1]);
 				var producto = DatosEjercicio3.getProducto(info_x);
 				productos.add(Pair.of(producto, value));
-				beneficio += producto.precio() * data.getValue();
+				beneficio += producto.precio() * value;
+			} 
+		}
+	}
+
+	public SolucionEjercicio3(List<Integer> ls) {
+		productos = List2.empty();
+		beneficio = 0.;
+		for (var i = 0; i < ls.size(); i++) {
+			var value = ls.get(i);
+			if (value>0) {
+				var producto = DatosEjercicio3.getProducto(i);
+				productos.add(Pair.of(producto, value*1.0));
+				beneficio += producto.precio() * value;
 			} 
 		}
 	}
@@ -37,11 +54,13 @@ public class SolucionEjercicio3 {
 	public String toString() {
 		String cadenaProductos = productos.stream()
 				.map(pair -> pair.first().id() + ": " + Math.round(pair.second()) + " unidades")
-				.reduce("", (ac, nx) -> ac + nx + "\n");
-		return String.format("Productos selecionados:\n%sBeneficio:%s",cadenaProductos, beneficio);
+				.reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
+		return String.format("Productos selecionados:\n%sBeneficio: %s",cadenaProductos, beneficio);
 	}
 	
 	public static void print(GurobiSolution gs) {
 		String2.toConsole("%s\n%s\n%s", String2.linea(), create(gs), String2.linea());
 	}
+
+	
 }

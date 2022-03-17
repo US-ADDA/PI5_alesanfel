@@ -16,7 +16,7 @@ public class TestEjercicio4 {
 		
 		TestPLEFile.of(out_path_ple,lsi_path,gurobi_path,
 				DatosEjercicio4::initDatos,SolucionEjercicio4::print,
-				DatosEjercicio4.class).test(data_path+1+".txt");
+				DatosEjercicio4.class).test(data);
 		// TestGENFile.of(out_path_gen, population_size, num_generations, GenEjercicio4::create).test();
 		
 	}

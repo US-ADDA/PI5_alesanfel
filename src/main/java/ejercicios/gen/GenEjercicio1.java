@@ -31,16 +31,16 @@ public class GenEjercicio1 implements ValuesInRangeData<Integer, SolucionEjercic
 	}
 
 	@Override
-	public Double fitnessFunction(List<Integer> ls) {
+	public Double fitnessFunction(List<Integer> value) {
 		double goal = 0, error = 0;
 		Map<Integer, Integer> map = new HashMap<>();
 		for (var i = 0; i<DatosEjercicio1.getNumFichero(); i++) {
-			if (ls.get(i) < DatosEjercicio1.getNumMemoria()) {
+			if (value.get(i) < DatosEjercicio1.getNumMemoria()) {
 				// Maximizar la capacidad de los ficheros.
 				goal++;
 				// La capacidad del fichero no puede superar al tamaño máximo de la memoria.
-				error += DatosEjercicio1.getCapacidadFichero(i) > DatosEjercicio1.getMaxTamanoMemoria(ls.get(i)) ? 1: 0;
-				var key = ls.get(i);
+				error += DatosEjercicio1.getCapacidadFichero(i) > DatosEjercicio1.getMaxTamanoMemoria(value.get(i)) ? 1: 0;
+				var key = value.get(i);
 				if (map.containsKey(key)) 
 					map.put(key, map.get(key)-DatosEjercicio1.getCapacidadFichero(i));
 				else 
@@ -49,11 +49,7 @@ public class GenEjercicio1 implements ValuesInRangeData<Integer, SolucionEjercic
 			}
 		}
 		// La capacidad de los ficheros de una memoria no pueden superar a la de la memoria ni ser menor.
-		System.out.println(map);
 		error += map.entrySet().stream().mapToInt(entry -> Math.abs(entry.getValue())).sum();
-		if (error == 0) {
-			System.out.println(ls);
-		}
 		return error<1? goal: -1000*error;
 	}
 

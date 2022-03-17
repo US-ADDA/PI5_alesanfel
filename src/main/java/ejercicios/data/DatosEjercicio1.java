@@ -26,7 +26,6 @@ public class DatosEjercicio1 {
 	
 	// Métodos para memoria.
 	public static Integer getCapacidadMemoria(Integer j) {
-		System.out.println("hola");
 		return MEMORIAS.get(j).capacidad();
 	}
 	

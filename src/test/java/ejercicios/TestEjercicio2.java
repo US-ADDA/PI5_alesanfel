@@ -19,7 +19,7 @@ public class TestEjercicio2 {
 		TestPLEFile.of(out_path_ple,lsi_path,gurobi_path,
 				DatosEjercicio2::initDatos,SolucionEjercicio2::print,
 				DatosEjercicio2.class).test(data);
-		// TestGENFile.of(out_path_gen, population_size, num_generations, GenEjercicio2::create).test(data);
+		TestGENFile.of(out_path_gen, population_size, num_generations, GenEjercicio2::create).test(data);
 	}
 }
 

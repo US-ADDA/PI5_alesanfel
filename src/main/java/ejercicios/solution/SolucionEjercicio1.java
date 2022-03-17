@@ -19,7 +19,6 @@ public class SolucionEjercicio1 {
 	}
 	
 	public static SolucionEjercicio1 create(List<Integer> ls) {
-		System.out.println("Solución: " + ls);
 		return new SolucionEjercicio1(ls);
 	}	
 	
@@ -61,7 +60,7 @@ public class SolucionEjercicio1 {
 	public String toString() {
 		String cadenaMemorias = memorias.entrySet().stream()
 				.map(entry -> entry.getKey() + ": " + entry.getValue() )
-				.reduce("", (ac, nx) -> ac + nx + "\n");
+				.reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
 		return String.format("Reparto obtenido:\n%sNúmero de archivos:%s",cadenaMemorias,num_ficheros);
 	}
 	

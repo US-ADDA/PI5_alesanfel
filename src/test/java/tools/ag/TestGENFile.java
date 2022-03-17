@@ -44,7 +44,7 @@ public class TestGENFile <R extends ChromosomeData<E, S>, E, S> {
 			StoppingConditionFactory.NUM_GENERATIONS = num_generations;
 			var alg = AlgoritmoAG.of(create.apply(data_path[i]));
 			alg.ejecuta();
-			System.setOut(ps_res);
+			//System.setOut(ps_res);
 			String2.toConsole("%s\n%s\n%s", String2.linea(), alg.bestSolution(), String2.linea());
 			System.setOut(consola);
 		}

@@ -25,6 +25,6 @@ public class TestEjercicio1 {
 				DatosEjercicio1::initDatos,SolucionEjercicio1::print,
 				DatosEjercicio1.class).test(data);
 		
-		// TestGENFile.of(out_path_gen, population_size, num_generations, GenEjercicio1::create).test(data);
+		TestGENFile.of(out_path_gen, population_size, num_generations, GenEjercicio1::create).test(data);
 	}
 }

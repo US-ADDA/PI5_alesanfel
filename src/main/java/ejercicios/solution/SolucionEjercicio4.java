@@ -40,7 +40,7 @@ public class SolucionEjercicio4 {
 	public String toString() {
 		var cadenaContenedores = elementosPorContenedor.entrySet().stream()
 				.map(entry -> entry.getKey().id() + ": " + entry.getValue().stream().map(Elemento::id).toList())
-				.reduce("", (ac, nx) -> ac + nx + "\n");
+				.reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
 		return String.format("Reparto obtenido:\n%s", cadenaContenedores);
 	}
 	

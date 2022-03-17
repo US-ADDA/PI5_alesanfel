@@ -25,8 +25,6 @@ public class DatosEjercicio4 {
 	
 	// Métodos para elementos.
 	public static Integer getTamanoElemento(Integer i) {
-		System.out.println("Elemento = " + i);
-		System.out.println(ELEMENTOS.get(i).tamano());
 		return ELEMENTOS.get(i).tamano();
 	}
 	

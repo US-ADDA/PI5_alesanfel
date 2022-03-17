@@ -18,12 +18,10 @@ public class SolucionEjercicio2 {
 		return new SolucionEjercicio2(gs.objVal, gs.values);
 	}	
 	
-	public static SolucionEjercicio2 create(List<Integer> value) {
-		return new SolucionEjercicio2(value);
+	public static SolucionEjercicio2 create(List<Integer> ls) {
+		return new SolucionEjercicio2(ls);
 	}
 	
-
-
 	private SolucionEjercicio2(Double vo, Map<String, Double> vbles) {
 		candidatos = List2.empty();
 		valoracionMedia = 0.;
@@ -41,13 +39,13 @@ public class SolucionEjercicio2 {
 		valoracionMedia = valoracionTotal/candidatos.size();
 	}
 	
-	private SolucionEjercicio2(List<Integer> value) {
+	private SolucionEjercicio2(List<Integer> ls) {
 		candidatos = List2.empty();
 		valoracionMedia = 0.;
 		valoracionTotal = 0.;
 		gasto = 0.;
-		for (var i = 0; i < DatosEjercicio2.getNumCandidatos(); i++) {
-			if (value.get(i) == 1) {
+		for (var i = 0; i < ls.size(); i++) {
+			if (ls.get(i) == 1) {
 				var candidato = DatosEjercicio2.getCandidato(i);
 				candidatos.add(candidato);
 				valoracionTotal += candidato.valoracion();
@@ -59,8 +57,8 @@ public class SolucionEjercicio2 {
 
 	@Override
 	public String toString() {
-		String cadenaCandidatos = candidatos.stream().map(Candidato::toString).reduce("", (ac, nx) -> ac+nx+"\n");
-		return "Candidatos Seleccionados:\n" + cadenaCandidatos + "Valoracion total: " + valoracionTotal +  " Valoración media: " + valoracionMedia + "; Gasto: " + gasto;
+		String cadenaCandidatos = candidatos.stream().map(Candidato::toString).reduce("", (ac, nx) -> String.format("%s%s\n",ac,nx));
+		return String.format("Candidatos Seleccionados:\n%sValoracion total: %d.1f; Gasto: %d.1f; V. media: %d.1f",cadenaCandidatos, valoracionTotal, gasto, valoracionMedia);
 	}
 	
 	public static void print(GurobiSolution gs) {

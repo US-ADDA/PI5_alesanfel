@@ -13,7 +13,7 @@ import us.lsi.gurobi.GurobiSolution;
 import us.lsi.solve.AuxGrammar;
 
 public class TestPLELine {
-	private String data_path,lsi_path,gurobi_path;
+	private String lsi_path,gurobi_path;
 	private Consumer<GurobiSolution> cs;
 	private Consumer<String> init;
 	private Class<?> classIdentifier;
