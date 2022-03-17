@@ -1,0 +1,36 @@
+head section
+
+Integer getIngresos(Integer i)
+Integer getMaxUnidades(Integer i)
+Integer getNumProductos()
+
+Integer getNumComponentes()
+
+Integer getTiempoComponenteDelProductoEnProduccion(Integer i, Integer j)
+Integer getTiempoComponenteDelProductoEnElaboracion(Integer i, Integer j)
+
+Integer getMaxTiempoEnProduccion()
+Integer getMaxTiempoEnElaboracion()
+
+Integer n = getNumProductos()
+Integer m = getNumComponentes()
+Integer maxTiempoProduccion = getMaxTiempoEnProduccion()
+Integer getMaxTiempoEnElaboracion = getMaxTiempoEnElaboracion()
+
+goal section
+
+max sum(getIngresos(i) x[i], i in 0 .. n)
+
+
+constraints section
+
+sum(getTiempoComponenteDelProductoEnProduccion(i, j) x[i], i in 0 .. n, j in 0 .. m) <= maxTiempoProduccion
+sum(getTiempoComponenteDelProductoEnElaboracion(i, j) x[i] , i in 0 .. n, j in 0 .. m) <= getMaxTiempoEnElaboracion
+
+bounds section
+x[i] <= getMaxUnidades(i), i in 0 .. n
+
+
+int
+
+x[i], i in 0 .. n

@@ -1,0 +1,28 @@
+head section
+
+Integer getCapacidadMemoria(Integer j)
+Integer getMaxTamanoMemoria(Integer j)
+Integer getNumMemoria()
+
+Integer getCapacidadFichero(Integer i)
+Integer getNumFichero()
+
+Integer n = getNumFichero()
+Integer m = getNumMemoria()
+
+
+goal section
+
+max sum(x[i,j], i in 0 .. n, j in 0 .. m)
+
+
+constraints section
+
+sum(x[i,j], j in 0 .. m) <= 1, i in 0 .. n
+sum(getCapacidadFichero(i) x[i,j], i in 0 .. n) <= getCapacidadMemoria(j), j in 0 .. m
+getCapacidadFichero(i) x[i,j] <= getMaxTamanoMemoria(j), i in 0 .. n, j in 0 .. m 
+
+
+bin
+
+x[i,j], i in 0 .. n, j in 0 .. m

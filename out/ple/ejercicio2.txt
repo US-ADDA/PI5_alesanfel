@@ -1,0 +1,3 @@
+Resultados de los test de los test ejemplo:
+____________________________________________________________________________________________________
+Error code: 10012. Unable to open file 'models/gurobi/ejercicio2.lp' for input
