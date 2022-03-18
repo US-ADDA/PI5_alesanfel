@@ -5,8 +5,8 @@ import java.util.function.Function;
 import main.java.ejercicios.data.DatosEjercicio1;
 import main.java.ejercicios.gen.GenEjercicio1;
 import main.java.ejercicios.solution.SolucionEjercicio1;
-import test.java.tools.ag.TestGENFile;
-import test.java.tools.ple.TestPLEFile;
+import test.java.tools.TestGEN;
+import test.java.tools.TestPLE;
 import us.lsi.ag.ChromosomeData;
 import us.lsi.ag.ValuesInRangeData;
 
@@ -25,6 +25,6 @@ public class TestEjercicio1 {
 		//		DatosEjercicio1::initDatos,SolucionEjercicio1::print,
 		//		DatosEjercicio1.class).test(data);
 		
-		TestGENFile.of(out_path_gen, population_size, num_generations, GenEjercicio1::create).test(data);
+		TestGEN.of(out_path_gen, population_size, num_generations, GenEjercicio1::create).testFile(data);
 	}
 }

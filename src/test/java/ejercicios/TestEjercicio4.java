@@ -3,8 +3,8 @@ package test.java.ejercicios;
 import main.java.ejercicios.data.DatosEjercicio4;
 import main.java.ejercicios.gen.GenEjercicio4;
 import main.java.ejercicios.solution.SolucionEjercicio4;
-import test.java.tools.ag.TestGENFile;
-import test.java.tools.ple.TestPLEFile;
+import test.java.tools.TestGEN;
+import test.java.tools.TestPLE;
 
 public class TestEjercicio4 {
 
@@ -16,10 +16,10 @@ public class TestEjercicio4 {
 	public static void main(String[] args) {
 		String[] data = {data_path+1+".txt", data_path+2+".txt", data_path+3+".txt"};
 		
-		TestPLEFile.of(out_path_ple,lsi_path,gurobi_path,
+		TestPLE.of(out_path_ple,lsi_path,gurobi_path,
 				DatosEjercicio4::initDatos,SolucionEjercicio4::print,
-				DatosEjercicio4.class).test(data);
-		TestGENFile.of(out_path_gen, population_size, num_generations, GenEjercicio4::create).test(data);
+				DatosEjercicio4.class).testFile(data);
+		TestGEN.of(out_path_gen, population_size, num_generations, GenEjercicio4::create).testFile(data);
 		
 	}
 }
