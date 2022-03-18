@@ -44,7 +44,7 @@ public class SolucionEjercicio1 {
 		for (var i = 0; i < ls.size(); i++) {
 			if (ls.get(i) < DatosEjercicio1.getNumMemoria()) {
 				num_ficheros++;
-				var key = DatosEjercicio1.getMemoria(ls.get(i)).id();;
+				var key = DatosEjercicio1.getMemoria(ls.get(i)).id();
 				var value = DatosEjercicio1.getFichero(i).id();
 				if (memorias.containsKey(key))
 					memorias.get(key).add(value);

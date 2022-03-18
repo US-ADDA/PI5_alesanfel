@@ -21,9 +21,9 @@ public class TestEjercicio1 {
 		String[] data = {data_path+1+".txt",data_path+2+".txt",data_path+3+".txt"};
 
 		
-		TestPLEFile.of(out_path_ple,lsi_path,gurobi_path,
-				DatosEjercicio1::initDatos,SolucionEjercicio1::print,
-				DatosEjercicio1.class).test(data);
+		//TestPLEFile.of(out_path_ple,lsi_path,gurobi_path,
+		//		DatosEjercicio1::initDatos,SolucionEjercicio1::print,
+		//		DatosEjercicio1.class).test(data);
 		
 		TestGENFile.of(out_path_gen, population_size, num_generations, GenEjercicio1::create).test(data);
 	}

@@ -23,6 +23,8 @@ sum(x[i,j], j in 0 .. m) <= 1, i in 0 .. n
 sum(getTamanoElemento(i) x[i,j], i in 0 .. n | esCompatible(i,j)) - getCapacidadContenedor(j) y[j] = 0, j in 0 .. m
 
 
+
+
 bin
 
 x[i,j], i in 0 .. n, j in 0 .. m

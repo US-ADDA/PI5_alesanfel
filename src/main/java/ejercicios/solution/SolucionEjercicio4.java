@@ -8,6 +8,7 @@ import main.java.ejercicios.classes.Contenedor;
 import main.java.ejercicios.classes.Elemento;
 import main.java.ejercicios.data.DatosEjercicio4;
 import us.lsi.common.List2;
+import us.lsi.common.Map2;
 import us.lsi.common.String2;
 import us.lsi.gurobi.GurobiSolution;
 
@@ -19,15 +20,32 @@ public class SolucionEjercicio4 {
 		return new SolucionEjercicio4(gs.objVal, gs.values);
 	}	
 	
+	public static SolucionEjercicio4 create(List<Integer> ls) {
+		return new SolucionEjercicio4(ls);
+	}
 
 
 	private SolucionEjercicio4(Double vo, Map<String, Double> vbles) {
-		elementosPorContenedor = new HashMap<>();
+		elementosPorContenedor = Map2.empty();
 		for (var data: vbles.entrySet()) {
 			if (data.getValue()>0 && data.getKey().startsWith("x")) {
 				var info_x = data.getKey().split("_");
 				var value = DatosEjercicio4.getElemento(Integer.parseInt(info_x[1]));
 				var key = DatosEjercicio4.getContenedor(Integer.parseInt(info_x[2]));
+				if (elementosPorContenedor.containsKey(key))
+					elementosPorContenedor.get(key).add(value);
+				else 
+					elementosPorContenedor.put(key, List2.of(value));
+			}
+		}
+	}
+
+	public SolucionEjercicio4(List<Integer> ls) {
+		elementosPorContenedor = new HashMap<>();
+		for (var i = 0; i < ls.size(); i++) {
+			if (ls.get(i) < DatosEjercicio4.getNumContenedores()) {
+				var value = DatosEjercicio4.getElemento(i);
+				var key = DatosEjercicio4.getContenedor(ls.get(i));
 				if (elementosPorContenedor.containsKey(key))
 					elementosPorContenedor.get(key).add(value);
 				else 
@@ -47,4 +65,8 @@ public class SolucionEjercicio4 {
 	public static void print(GurobiSolution gs) {
 		String2.toConsole("%s\n%s\n%s", String2.linea(), create(gs), String2.linea());
 	}
+
+
+
+	
 }
