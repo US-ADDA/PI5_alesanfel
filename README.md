@@ -36,3 +36,7 @@ se dispone.
 predicado sobre Ciudad y otro sobre Carretera. Se desea saber cuál es el camino más
 corto para llegar de una ciudad origen a un destino pasando al menos por alguna
 ciudad intermedia y por alguna arista intermedia que cumplan los predicados. 
+
+Para que el proyecto funcione correctamente es necesario descargar los paquetes de Miguel Toro:
+
+https://github.com/migueltoro/adda_v1_16.git
