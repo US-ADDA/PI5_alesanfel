@@ -1,10 +1,7 @@
 package main.java.ejercicios.gen;
 
 import java.util.List;
-import java.util.Set;
-
 import main.java.ejercicios.data.DatosEjercicio2;
-import main.java.ejercicios.data.DatosEjercicio4;
 import main.java.ejercicios.solution.SolucionEjercicio2;
 import us.lsi.ag.BinaryData;
 import us.lsi.common.Set2;

@@ -1,5 +1,6 @@
 package main.java.ejercicios.gen;
 
+import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import main.java.ejercicios.solution.SolucionEjercicio1;
 import us.lsi.ag.ValuesInRangeData;
 import us.lsi.ag.agchromosomes.ChromosomeFactory.ChromosomeType;
 import us.lsi.common.List2;
+import us.lsi.grafos.datos.Ciudad;
 
 public class GenEjercicio1 implements ValuesInRangeData<Integer, SolucionEjercicio1> {
 
@@ -34,6 +36,7 @@ public class GenEjercicio1 implements ValuesInRangeData<Integer, SolucionEjercic
 	public Double fitnessFunction(List<Integer> value) {
 		double goal = 0, error = 0;
 		Map<Integer, Integer> map = new HashMap<>();
+		
 		for (var i = 0; i<DatosEjercicio1.getNumFichero(); i++) {
 			if (value.get(i) < DatosEjercicio1.getNumMemoria()) {
 				// Maximizar la capacidad de los ficheros.

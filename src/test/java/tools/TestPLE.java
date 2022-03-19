@@ -19,6 +19,7 @@ public class TestPLE {
 	private Consumer<GurobiSolution> cs;
 	private Class<?> classIdentifier;
 	private PrintStream consola, ps_res;
+	private Integer c;
 	
 	private TestPLE(String out_path, String lsi_path, String gurobi_path, Consumer<String> init, Consumer<GurobiSolution> cs, Class<?> classIdentifier) {
 		this.lsi_path = lsi_path;
@@ -26,6 +27,7 @@ public class TestPLE {
 		this.init = init;
 		this.classIdentifier = classIdentifier;
 		this.cs = cs;
+		this.c = 1;
 		
 		consola = System.out;
 		try {
@@ -45,7 +47,8 @@ public class TestPLE {
 			var ls = Files2.linesFromFile(data_path[i]);
 			for (var data: ls) {
 				init.accept(data);
-				var new_gurobi_path = gurobi_path.replace(".lp", "-" + (i+1)+".lp");
+				var new_gurobi_path = gurobi_path.replace(".lp", "-" + c +".lp");
+				c++;
 				System.setOut(consola);
 				try {
 					AuxGrammar.generate(classIdentifier, lsi_path, new_gurobi_path);
@@ -55,17 +58,18 @@ public class TestPLE {
 				System.setOut(ps_res);
 				GurobiSolution gs = GurobiLp.gurobi(new_gurobi_path);
 				String2.toConsole("\nSolución PLE:%s", gs.toString((s,d) -> d>0).substring(2));
-				cs.accept(gs);
-				System.setOut(consola);
+				cs.accept(gs);		
 			}
 		}
+		System.setOut(consola);
 	}
 	
 	
 	public void testFile(String ... data_path) {
 		for (var i=0;i < data_path.length; i++) {
 			init.accept(data_path[i]);
-			var new_gurobi_path = gurobi_path.replace(".lp", "-" + (i+1)+".lp");
+			var new_gurobi_path = gurobi_path.replace(".lp", "-" + c +".lp");
+			c++;
 			System.setOut(consola);
 			try {
 				AuxGrammar.generate(classIdentifier, lsi_path, new_gurobi_path);
@@ -75,9 +79,9 @@ public class TestPLE {
 			System.setOut(ps_res);
 			GurobiSolution gs = GurobiLp.gurobi(new_gurobi_path);
 			String2.toConsole("\nSolución PLE:%s", gs.toString((s,d) -> d>0).substring(2));
-			cs.accept(gs);
-			System.setOut(consola);
+			cs.accept(gs);	
 		}
+		System.setOut(consola);
 		
 	}
 }

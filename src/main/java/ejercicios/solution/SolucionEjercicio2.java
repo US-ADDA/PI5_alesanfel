@@ -58,7 +58,7 @@ public class SolucionEjercicio2 {
 	@Override
 	public String toString() {
 		String cadenaCandidatos = candidatos.stream().map(Candidato::toString).reduce("", (ac, nx) -> String.format("%s%s\n",ac,nx));
-		return String.format("Candidatos Seleccionados:\n%sValoracion total: %d.1f; Gasto: %d.1f; V. media: %d.1f",cadenaCandidatos, valoracionTotal, gasto, valoracionMedia);
+		return String.format("Candidatos Seleccionados:\n%sValoracion total: %.1f; Gasto: %.1f; V. media: %.1f",cadenaCandidatos, valoracionTotal, gasto, valoracionMedia);
 	}
 	
 	public static void print(GurobiSolution gs) {

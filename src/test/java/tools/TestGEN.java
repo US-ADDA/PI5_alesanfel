@@ -44,12 +44,14 @@ public class TestGEN <R extends ChromosomeData<E, S>, E, S> {
 			AlgoritmoAG.POPULATION_SIZE = population_size;	
 			StoppingConditionFactory.NUM_GENERATIONS = num_generations;
 			var ls = Files2.linesFromFile(data_path[i]);
+			System.setOut(ps_res);
 			for (var data: ls) {
 				var alg = AlgoritmoAG.of(create.apply(data));
 				alg.ejecuta();
 				String2.toConsole("%s\n%s\n%s", String2.linea(), alg.bestSolution(), String2.linea());
 			}
 		}
+		System.setOut(consola);
 	}
 	
 	public void testFile(String ... data_path) {
@@ -60,8 +62,8 @@ public class TestGEN <R extends ChromosomeData<E, S>, E, S> {
 			var alg = AlgoritmoAG.of(create.apply(data_path[i]));
 			alg.ejecuta();
 			System.setOut(ps_res);
-			String2.toConsole("%s\n%s\n%s", String2.linea(), alg.bestSolution(), String2.linea());
-			System.setOut(consola);
+			String2.toConsole("%s\n%s\n%s", String2.linea(), alg.bestSolution(), String2.linea());	
 		}
+		System.setOut(consola);
 	}
 }

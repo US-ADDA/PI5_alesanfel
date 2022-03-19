@@ -14,7 +14,7 @@ import us.lsi.gurobi.GurobiSolution;
 
 public class SolucionEjercicio4 {
 	
-	private static Map<Contenedor, List<Elemento>> elementosPorContenedor;
+	private Map<Contenedor, List<Elemento>> elementosPorContenedor;
 	
 	public static SolucionEjercicio4 create(GurobiSolution gs) {
 		return new SolucionEjercicio4(gs.objVal, gs.values);
