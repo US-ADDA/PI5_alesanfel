@@ -1,16 +1,16 @@
 package main.java.ejercicios.gen;
 
-import java.lang.annotation.Target;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import main.java.ejercicios.data.DatosEjercicio1;
 import main.java.ejercicios.solution.SolucionEjercicio1;
 import us.lsi.ag.ValuesInRangeData;
 import us.lsi.ag.agchromosomes.ChromosomeFactory.ChromosomeType;
-import us.lsi.common.List2;
-import us.lsi.grafos.datos.Ciudad;
 
 public class GenEjercicio1 implements ValuesInRangeData<Integer, SolucionEjercicio1> {
 
@@ -34,25 +34,32 @@ public class GenEjercicio1 implements ValuesInRangeData<Integer, SolucionEjercic
 
 	@Override
 	public Double fitnessFunction(List<Integer> value) {
+		
 		double goal = 0, error = 0;
 		Map<Integer, Integer> map = new HashMap<>();
-		
 		for (var i = 0; i<DatosEjercicio1.getNumFichero(); i++) {
 			if (value.get(i) < DatosEjercicio1.getNumMemoria()) {
 				// Maximizar la capacidad de los ficheros.
 				goal++;
 				// La capacidad del fichero no puede superar al tamaño máximo de la memoria.
-				error += DatosEjercicio1.getCapacidadFichero(i) > DatosEjercicio1.getMaxTamanoMemoria(value.get(i)) ? 1: 0;
+				error += DatosEjercicio1.getCapacidadFichero(i) >= DatosEjercicio1.getMaxTamanoMemoria(value.get(i)) ? 1: 0;
 				var key = value.get(i);
-				if (map.containsKey(key)) 
+				if (map.containsKey(key)) {
 					map.put(key, map.get(key)-DatosEjercicio1.getCapacidadFichero(i));
-				else 
+				}
+					
+				else {
 					map.put(key, DatosEjercicio1.getCapacidadMemoria(key) - DatosEjercicio1.getCapacidadFichero(i));
+				}
+					
 				
 			}
 		}
-		// La capacidad de los ficheros de una memoria no pueden superar a la de la memoria ni ser menor.
-		error += map.entrySet().stream().mapToInt(entry -> Math.abs(entry.getValue())).sum();
+		// Para cada memoria, no se puede exceder su capacidad.
+		error += map.entrySet().stream().filter(entry -> entry.getValue() < 0).count();
+		System.out.println("Error: " + error + "Goal: " + goal);
+		if (goal==23) 
+			System.out.println(SolucionEjercicio1.create(value));
 		return error<1? goal: -1000*error;
 	}
 

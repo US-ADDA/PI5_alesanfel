@@ -18,7 +18,7 @@ public class TestEjercicio1 {
 	private static Integer population_size = 1000, num_generations = 1000;
 	
 	public static void main(String[] args) {
-		String[] data = {data_path+1+".txt",data_path+2+".txt",data_path+3+".txt"};
+		String[] data = {data_path+2+".txt"/*,data_path+2+".txt",data_path+3+".txt"*/};
 
 		
 		//TestPLEFile.of(out_path_ple,lsi_path,gurobi_path,
