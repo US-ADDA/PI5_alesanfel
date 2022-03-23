@@ -33,11 +33,11 @@ public class TestEjercicio5 {
 
 		BiPredicate<Carretera, Integer> predicadoCarretera1 = (carretera, distancia) -> carretera.km() > distancia;
 		BiPredicate<Ciudad, Integer> predicadoCiudad1 = (ciudad, habitantes) -> ciudad.habitantes() > habitantes;
-		//test(predicadoCarretera1, predicadoCiudad1, "Cadiz", "Granada", 100000, 100, data_path + 1 + ".txt", test);
+		test(predicadoCarretera1, predicadoCiudad1, "Cadiz", "Granada", 100000, 100, data_path + 1 + ".txt", test);
 		
 		BiPredicate<Carretera, Integer> predicadoCarretera2 = (carretera, distancia) -> carretera.km() > distancia;
 		BiPredicate<Ciudad, Integer> predicadoCiudad2 = (ciudad, habitantes) -> ciudad.habitantes() < habitantes;
-		//test(predicadoCarretera2, predicadoCiudad2, "Toledo", "Guadalajara", 200000, 120, data_path + 2 + ".txt", test);
+		test(predicadoCarretera2, predicadoCiudad2, "Toledo", "Guadalajara", 200000, 120, data_path + 2 + ".txt", test);
 		
 		BiPredicate<Carretera, Integer> predicadoCarretera3 = (carretera, distancia) -> carretera.km() < distancia;
 		BiPredicate<Ciudad, Integer> predicadoCiudad3 = (ciudad, habitantes) -> ciudad.habitantes() > habitantes;

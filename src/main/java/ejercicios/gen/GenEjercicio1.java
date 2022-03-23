@@ -57,9 +57,6 @@ public class GenEjercicio1 implements ValuesInRangeData<Integer, SolucionEjercic
 		}
 		// Para cada memoria, no se puede exceder su capacidad.
 		error += map.entrySet().stream().filter(entry -> entry.getValue() < 0).count();
-		System.out.println("Error: " + error + "Goal: " + goal);
-		if (goal==23) 
-			System.out.println(SolucionEjercicio1.create(value));
 		return error<1? goal: -1000*error;
 	}
 

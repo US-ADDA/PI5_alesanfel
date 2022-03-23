@@ -39,8 +39,6 @@ public class GenEjercicio5 implements SeqNormalData<SolucionEjercicio5>{
 	public Double fitnessFunction(List<Integer> value) {
 		Double goal = 0., error = 0.;
 		Integer predicadoCarreteraCumplido =  0, predicadoCiudadCumplido = 0; 
-		value = List.of(0,5,10,15,20,24);
-		System.out.println(SolucionEjercicio5.create(value));
 		Ciudad origen = DatosEjercicio5.getOrigen(), destino = DatosEjercicio5.getDestino();
 		if (value.size() >= 3) {
 			for (var i = 0; i < value.size()-1; i++) {

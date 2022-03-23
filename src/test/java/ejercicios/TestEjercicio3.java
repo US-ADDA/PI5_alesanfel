@@ -1,7 +1,10 @@
 package test.java.ejercicios;
 
+import main.java.ejercicios.data.DatosEjercicio3;
 import main.java.ejercicios.gen.GenEjercicio3;
+import main.java.ejercicios.solution.SolucionEjercicio3;
 import test.java.tools.TestGEN;
+import test.java.tools.TestPLE;
 
 public class TestEjercicio3 {
 
@@ -13,9 +16,9 @@ public class TestEjercicio3 {
 	public static void main(String[] args) {
 		String[] data = {data_path+1+".txt"};
 		
-		//TestPLEFile.of(out_path_ple,lsi_path,gurobi_path,
-		//		DatosEjercicio3::initDatos,SolucionEjercicio3::print,
-		//		DatosEjercicio3.class).test(data);
+		TestPLE.of(out_path_ple,lsi_path,gurobi_path,
+				DatosEjercicio3::initDatos,SolucionEjercicio3::print,
+				DatosEjercicio3.class).testFile(data);
 		TestGEN.of(out_path_gen, 1000, 1000, GenEjercicio3::create).testFile(data);
 	}
 }

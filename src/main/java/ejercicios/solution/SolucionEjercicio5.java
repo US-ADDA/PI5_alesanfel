@@ -22,7 +22,8 @@ public class SolucionEjercicio5 {
 		distancia = 0.;
 		ciudades = List2.of(DatosEjercicio5.getOrigen());
 		for (var i = 0; i < ls.size()-1; i++) {
-			Ciudad source = DatosEjercicio5.getCiudad(ls.get(i)), target = DatosEjercicio5.getCiudad(ls.get(i+1));
+			Ciudad source = DatosEjercicio5.getCiudad(ls.get(i)), 
+					target = DatosEjercicio5.getCiudad(ls.get(i+1));
 			if (grafo.containsEdge(source, target)) {
 				var carretera = grafo.getEdge(source, target);
 				distancia += carretera.km();

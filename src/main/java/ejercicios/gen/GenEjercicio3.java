@@ -49,8 +49,6 @@ public class GenEjercicio3 implements ValuesInRangeData<Integer, SolucionEjercic
 			}
 			
 		}
-		System.out.println("goal: " + goal + "error: " +error);
-		System.out.println(value);
 		return error < 1 ? goal: -1000*error;
 	}
 
