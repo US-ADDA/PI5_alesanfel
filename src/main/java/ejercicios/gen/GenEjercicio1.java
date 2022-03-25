@@ -1,12 +1,8 @@
 package main.java.ejercicios.gen;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 import main.java.ejercicios.data.DatosEjercicio1;
 import main.java.ejercicios.solution.SolucionEjercicio1;
 import us.lsi.ag.ValuesInRangeData;
@@ -37,12 +33,13 @@ public class GenEjercicio1 implements ValuesInRangeData<Integer, SolucionEjercic
 		
 		double goal = 0, error = 0;
 		Map<Integer, Integer> map = new HashMap<>();
+		
 		for (var i = 0; i<DatosEjercicio1.getNumFichero(); i++) {
 			if (value.get(i) < DatosEjercicio1.getNumMemoria()) {
 				// Maximizar la capacidad de los ficheros.
 				goal++;
 				// La capacidad del fichero no puede superar al tamaño máximo de la memoria.
-				error += DatosEjercicio1.getCapacidadFichero(i) >= DatosEjercicio1.getMaxTamanoMemoria(value.get(i)) ? 1: 0;
+				error += DatosEjercicio1.getCapacidadFichero(i) > DatosEjercicio1.getMaxTamanoMemoria(value.get(i)) ? 1: 0;
 				var key = value.get(i);
 				if (map.containsKey(key)) {
 					map.put(key, map.get(key)-DatosEjercicio1.getCapacidadFichero(i));
@@ -55,7 +52,7 @@ public class GenEjercicio1 implements ValuesInRangeData<Integer, SolucionEjercic
 				
 			}
 		}
-		// Para cada memoria, no se puede exceder su capacidad.
+		// Para cada memoria, no se puede exceder su capacidad.	
 		error += map.entrySet().stream().filter(entry -> entry.getValue() < 0).count();
 		return error<1? goal: -1000*error;
 	}

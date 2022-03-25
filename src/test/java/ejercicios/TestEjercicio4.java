@@ -11,6 +11,7 @@ public class TestEjercicio4 {
 	private static String data_path = "data/PI5Ej4DatosEntrada",out_path_ple = "out/ple/ejercicio4.txt",
 			lsi_path = "models/lsi/ejercicio4.lsi", gurobi_path = "models/gurobi/ejercicio4.lp",
 			out_path_gen = "out/gen/ejercicio4.txt";
+	
 	private static Integer population_size = 1000, num_generations = 1000;
 	
 	public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class TestEjercicio4 {
 		TestPLE.of(out_path_ple,lsi_path,gurobi_path,
 				DatosEjercicio4::initDatos,SolucionEjercicio4::print,
 				DatosEjercicio4.class).testFile(data);
-		TestGEN.of(out_path_gen, population_size, num_generations, GenEjercicio4::create).testFile(data);
 		
+		TestGEN.of(out_path_gen, population_size, num_generations, GenEjercicio4::create).testFile(data);
 	}
 }

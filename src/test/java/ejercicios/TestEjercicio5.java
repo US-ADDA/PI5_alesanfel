@@ -26,7 +26,6 @@ public class TestEjercicio5 {
 		test.testFile(data_path);
 	}
 	
-	
 	public static void main(String[] args) {
 		
 		TestGEN<GenEjercicio5, List<Integer>, SolucionEjercicio5> test = TestGEN.of(out_path, population_size, num_generations, GenEjercicio5::create);

@@ -2,7 +2,7 @@ head section
 
 Integer getValoracion(Integer i)
 Double getSueldo(Integer i)
-Boolean esCompatible(Integer i, Integer k)
+Boolean esIncompatible(Integer i, Integer k)
 Integer tieneCualidad(Integer i, Integer k)
 Integer getNumCandidatos()
 
@@ -24,7 +24,7 @@ constraints section
 
 sum(tieneCualidad(i,j) x[i], i in 0 .. n) >= 1, j in 0 .. m
 
-x[i] + x[k] <= 1, i in 0 .. n, k in 0 .. n | esCompatible(i,k) 
+x[i] + x[k] <= 1, i in 0 .. n, k in 0 .. n | esIncompatible(i,k) 
 
 sum(getSueldo(i) x[i], i in 0 .. n) <= presupuesto
 

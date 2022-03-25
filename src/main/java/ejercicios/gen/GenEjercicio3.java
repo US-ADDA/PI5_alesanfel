@@ -5,6 +5,7 @@ import main.java.ejercicios.data.DatosEjercicio3;
 import main.java.ejercicios.solution.SolucionEjercicio3;
 import us.lsi.ag.ValuesInRangeData;
 import us.lsi.ag.agchromosomes.ChromosomeFactory.ChromosomeType;
+import us.lsi.common.List2;
 
 public class GenEjercicio3 implements ValuesInRangeData<Integer, SolucionEjercicio3> {
 
@@ -32,9 +33,8 @@ public class GenEjercicio3 implements ValuesInRangeData<Integer, SolucionEjercic
 		Integer tiempoProduccion = 0, tiempoElaboracion = 0, 
 				maxTiempoProduccion = DatosEjercicio3.getMaxTiempoEnProduccion(),
 				maxTiempoElaboracion = DatosEjercicio3.getMaxTiempoEnElaboracion(),
-				numProductos = DatosEjercicio3.getNumProductos(),
 				numComponentes = DatosEjercicio3.getNumComponentes();
-		for (var i = 0; i < numProductos; i++) {
+		for (var i = 0; i < value.size(); i++) {
 			if (value.get(i) > 0 ) {
 				// Maximizar ingresos totales.
 				goal += DatosEjercicio3.getIngresos(i) * value.get(i);
@@ -45,9 +45,8 @@ public class GenEjercicio3 implements ValuesInRangeData<Integer, SolucionEjercic
 				// No se puede superar el tiempo total de producción.
 				error += maxTiempoProduccion < tiempoProduccion ? 1: 0;
 				// No se puede superar el tiempo taltal de elaboración.
-				error += maxTiempoElaboracion < tiempoProduccion ? 1 : 0;
+				error += maxTiempoElaboracion < tiempoElaboracion ? 1 : 0;
 			}
-			
 		}
 		return error < 1 ? goal: -1000*error;
 	}

@@ -62,7 +62,7 @@ public class SolucionEjercicio2 {
 	}
 	
 	public static void print(GurobiSolution gs) {
-		String2.toConsole("%s\n%s\n%s", String2.linea(), create(gs), String2.linea());
+		String2.toConsole("%s\n%s\n%s\n", String2.linea(), create(gs), String2.linea());
 	}
 
 

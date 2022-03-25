@@ -35,7 +35,7 @@ public class TestPLE {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		ps_res.append(String.format("%s\n%s\n", "Resultados de los test de los test ejemplo:", String2.linea()));
+		ps_res.append(String.format("%s\n\n", "Resultados de los test:"));
 	}
 	
 	public static TestPLE of(String out_path, String lsi_path, String gurobi_path, Consumer<String> init, Consumer<GurobiSolution> cs, Class<?> classIdentifier) {
@@ -55,8 +55,8 @@ public class TestPLE {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				System.setOut(ps_res);
 				GurobiSolution gs = GurobiLp.gurobi(new_gurobi_path);
+				System.setOut(ps_res);
 				String2.toConsole("\nSolución PLE:%s", gs.toString((s,d) -> d>0).substring(2));
 				cs.accept(gs);		
 			}
@@ -70,18 +70,19 @@ public class TestPLE {
 			init.accept(data_path[i]);
 			var new_gurobi_path = gurobi_path.replace(".lp", "-" + c +".lp");
 			c++;
-			System.setOut(consola);
+			
 			try {
 				AuxGrammar.generate(classIdentifier, lsi_path, new_gurobi_path);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.setOut(ps_res);
 			GurobiSolution gs = GurobiLp.gurobi(new_gurobi_path);
-			String2.toConsole("\nSolución PLE:%s", gs.toString((s,d) -> d>0).substring(2));
+			// String2.toConsole("\nSolución PLE:%s", gs.toString((s,d) -> d>0).substring(2));
+			System.setOut(ps_res);
 			cs.accept(gs);	
+			System.setOut(consola);
 		}
-		System.setOut(consola);
+		//System.setOut(consola);
 		
 	}
 }

@@ -34,7 +34,7 @@ public class DatosEjercicio2 {
 		return CANDIDATOS.get(i).sueldo();
 	}
 	
-	public static Boolean esCompatible(Integer i, Integer k) {
+	public static Boolean esIncompatible(Integer i, Integer k) {
 		return CANDIDATOS.get(i).incompatibilidadesPorCandidato().contains(CANDIDATOS.get(k).id());
 	}
 	
@@ -55,6 +55,10 @@ public class DatosEjercicio2 {
 		return CUALIDADES.size();
 	}
 	
+	public static List<String> getCualidades() {
+		return CUALIDADES;
+	}
+	
 	// Otro método.
 	public static Integer getPresupuesto() {
 		return PRESUPUESTO_MAXIMO;
@@ -66,7 +70,7 @@ public class DatosEjercicio2 {
 		initDatos("data/PI5Ej2DatosEntrada1.txt");
 		System.out.println("Datos candidatos -> " + CANDIDATOS);
 		System.out.println("Valoración del primer candidato -> " + getValoracion(0));
-		System.out.println("¿Primer candidato es compatible con segundo candidato? -> " + (esCompatible(0, 1) ? "Si": "No")) ;
+		System.out.println("¿Primer candidato es compatible con segundo candidato? -> " + (esIncompatible(0, 1) ? "Si": "No")) ;
 		System.out.println("Sueldo del primer candidato -> " + getSueldo(0));
 		System.out.println("Primer candidato -> " + getCandidato(0));
 		System.out.println("Número de candidatos -> " + getNumCandidatos());

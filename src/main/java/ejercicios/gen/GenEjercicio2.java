@@ -6,6 +6,7 @@ import main.java.ejercicios.data.DatosEjercicio2;
 import main.java.ejercicios.solution.SolucionEjercicio2;
 import main.java.ejercicios.solution.SolucionEjercicio5;
 import us.lsi.ag.BinaryData;
+import us.lsi.common.List2;
 import us.lsi.common.Set2;
 
 public class GenEjercicio2 implements BinaryData<SolucionEjercicio2>{
@@ -34,15 +35,14 @@ public class GenEjercicio2 implements BinaryData<SolucionEjercicio2>{
 				// Cualidades que utiliza cada candidato.
 				cualidades.addAll(DatosEjercicio2.getCandidato(i).cualidadesPorCandidato());
 				// No se pueden contratar "candidatos incompatibles.
-				for (var k = i+1; k < DatosEjercicio2.getNumCandidatos(); k++) {
-					error = !DatosEjercicio2.esCompatible(i, k) && value.get(k) == 1 ? 1: 0;
-				}
-					// Calculamos el gasto.
+				for (var k = i+1; k < DatosEjercicio2.getNumCandidatos(); k++)
+					error += DatosEjercicio2.esIncompatible(i, k) && value.get(k) == 1 ? 1: 0;	
+				// Calculamos el gasto.
 				gasto += DatosEjercicio2.getSueldo(i);
 			}
 		}
 		// Por cada cualidad, debe haber al menos un candidato selecionado que presente dicha cualidad.
-		error += DatosEjercicio2.getNumCualidades() == cualidades.size() ? 0: 1;
+		error += cualidades.containsAll(DatosEjercicio2.getCualidades()) ? 0: 1;
 		error += gasto <= DatosEjercicio2.getPresupuesto() ? 0: 1;
 		return error < 1 ? goal: -1000*error;
 	}
