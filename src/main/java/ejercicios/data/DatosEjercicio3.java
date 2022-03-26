@@ -1,102 +1,168 @@
 package main.java.ejercicios.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import main.java.ejercicios.classes.Componente;
 import main.java.ejercicios.classes.Producto;
 import us.lsi.common.Files2;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Los datos necesarios para resolver el ejercicio 3.
+ */
 public class DatosEjercicio3 {
 
-	private static List<Componente> COMPONENTES;
-	private static List<Producto> PRODUCTOS;
-	private static Integer TOTAL_PRODUCCION;
-	private static Integer TOTAL_MANUAL;
-	
-	public static void initDatos(String path) {
-		COMPONENTES = new ArrayList<>();;
-		PRODUCTOS = new ArrayList<>();
-		for (var linea: Files2.linesFromFile(path)) { 
-			if (linea.contains("T_prod =") && !linea.contains("//")) 
-				TOTAL_PRODUCCION = Integer.parseInt(linea.split("=")[1].trim());
-			else if (linea.contains("T_manual =") && !linea.contains("//")) 
-				TOTAL_MANUAL = Integer.parseInt(linea.split("=")[1].trim());
-			else if (linea.contains("C") && !linea.contains("->") && !linea.contains("//")) 
-				COMPONENTES.add(Componente.parse(linea));
-		    else if (linea.contains("P") && !linea.contains("//")) 
-				PRODUCTOS.add(Producto.parse(linea));
-		}
-	}
-	
-	// Métodos para productos.
-	public static Integer getIngresos(Integer i) {
-		return PRODUCTOS.get(i).precio();
-	}
-	
-	public static Integer getMaxUnidades(Integer i) {
-		return PRODUCTOS.get(i).maxUnidades();
-	}
-	
-	public static Producto getProducto(Integer i) {
-		return PRODUCTOS.get(i);
-	}
-	
-	public static Integer getNumProductos() {
-		return PRODUCTOS.size();
-	}
-	
+    private static List<Componente> componentes;
+    private static List<Producto> productos;
+    private static Integer totalProduccion;
+    private static Integer totalManual;
 
-	// Métodos para componentes.
-	private static Integer getTiempoComponenteEnProduccion(Integer j) {
-		return COMPONENTES.get(j).tiempoProduccion();
-	}
-	
-	private static Integer getTiempoComponenteEnElaboracion(Integer j) {
-		return COMPONENTES.get(j).tiempoElaboracion();
-	}
-		
-	public static Integer getNumComponentes() {
-		return COMPONENTES.size();
-	}
-	
-	// Métodos para ambos.
-	private static Integer getNumComponentesDelProducto(Integer i, Integer j) {
-		var res = PRODUCTOS.get(i).componentes().get(j);
-		return res != null ? res: 0;
-	}
-	
-	public static Integer getTiempoComponenteDelProductoEnProduccion(Integer i, Integer j) {
-		return getNumComponentesDelProducto(i, j) * getTiempoComponenteEnProduccion(j);
-	}
-	
-	public static Integer getTiempoComponenteDelProductoEnElaboracion(Integer i, Integer j) {
-		return getNumComponentesDelProducto(i, j) * getTiempoComponenteEnElaboracion(j);
-	}
-	
-	// Otros métodos
-	public static Integer getMaxTiempoEnProduccion() {
-		return TOTAL_PRODUCCION;
-	}
-		
-	public static Integer getMaxTiempoEnElaboracion() {
-		return TOTAL_MANUAL;
-	}
-	
-	public static void main(String[] args) {
-		initDatos("data/PI5Ej3DatosEntrada1.txt");
-		System.out.println("Datos productos -> " + PRODUCTOS);
-		System.out.println("Ingresos del primer componente -> " + getIngresos(0));
-		System.out.println("Número máximo de unidades del primer producto -> " + getMaxUnidades(0));
-		System.out.println("Primer producto -> " + getProducto(0));
-		System.out.println("Datos componentes -> " + COMPONENTES);
-		System.out.println("Tiempo de producción del primer componente -> " + getTiempoComponenteEnProduccion(0));
-		System.out.println("Tiempo acabado del segundo componente -> " + getTiempoComponenteEnElaboracion(0));
-		System.out.println("Número de componentes -> " + getNumComponentes());
-		System.out.println("Número de componetes del primer componente para el primer producto -> " + getNumComponentesDelProducto(0, 0));
-		System.out.println("Tiempo de producción del primer componente para el primer producto -> " + getTiempoComponenteDelProductoEnProduccion(0, 0));
-		System.out.println("Tiempo de acabado manual del primer componente para el primer producto -> " + getTiempoComponenteDelProductoEnElaboracion(0, 0));
-		System.out.println("Tiempo máximo de producción -> " + getMaxTiempoEnProduccion());
-		System.out.println("Tiempo máximo de acabado manual -> " + getMaxTiempoEnElaboracion());
-	}
+    /**
+     * Cargar los datos de un fichero.
+     *
+     * @param path la ruta del fichero.
+     */
+    public static void initDatos(String path) {
+        componentes = new ArrayList<>();
+        productos = new ArrayList<>();
+        for (var linea : Files2.linesFromFile(path)) {
+            if (linea.contains("T_prod =") && !linea.contains("//"))
+                totalProduccion = Integer.parseInt(linea.split("=")[1].trim());
+            else if (linea.contains("T_manual =") && !linea.contains("//"))
+                totalManual = Integer.parseInt(linea.split("=")[1].trim());
+            else if (linea.contains("C") && !linea.contains("->") && !linea.contains("//"))
+                componentes.add(Componente.parse(linea));
+            else if (linea.contains("P") && !linea.contains("//"))
+                productos.add(Producto.parse(linea));
+        }
+    }
+
+    // <- MÉTODOS PARA PRODUCTOS -> //
+
+    /**
+     * Obtiene los ingresos para un producto.
+     *
+     * @param i el índice correspondiente al producto en la lista {@code productos}.
+     * @return los ingresos que produce el producto.
+     */
+    public static Integer getIngresos(Integer i) {
+        return productos.get(i).precio();
+    }
+
+    /**
+     * Obtiene el número máximo de unidades que se puede producir de un producto.
+     *
+     * @param i el índice correspondiente al producto en la lista {@code productos}.
+     * @return el número máximo de unidades.
+     */
+    public static Integer getMaxUnidades(Integer i) {
+        return productos.get(i).maxUnidades();
+    }
+
+    /**
+     * Obtiene una instancia del tipo {@link Producto}.
+     *
+     * @param i el índice correspondiente al producto en la lista {@code productos}.
+     * @return una instancia del tipo {@link Producto}.
+     */
+    public static Producto getProducto(Integer i) {
+        return productos.get(i);
+    }
+
+    /**
+     * Obtiene el número de productos que disponemos.
+     *
+     * @return el número de productos que disponemos.
+     */
+    public static Integer getNumProductos() {
+        return productos.size();
+    }
+
+
+    // <- MÉTODOS PARA COMPONENTES -> //
+
+    /**
+     * Obtiene el tiempo que necesita el componente para la fase de producción.
+     *
+     * @param j el índice correspondiente al componente en la lista {@code componentes}.
+     * @return tiempo necesario para el componente en la fase de producción.
+     */
+    private static Integer getTiempoComponenteEnProduccion(Integer j) {
+        return componentes.get(j).tiempoProduccion();
+    }
+
+    /**
+     * Obtiene el tiempo que necesita el componente para la fase manual.
+     *
+     * @param j el índice correspondiente al componente en la lista {@code componentes}.
+     * @return tiempo necesario para el componente en la fase manual.
+     */
+    private static Integer getTiempoComponenteEnManual(Integer j) {
+        return componentes.get(j).tiempoManual();
+    }
+
+    /**
+     * Obtiene el número de componentes que disponemos.
+     *
+     * @return el número de componentes que disponemos,
+     */
+    public static Integer getNumComponentes() {
+        return componentes.size();
+    }
+
+    // Métodos para ambos.
+
+    /**
+     * Obtiene el número necesario para un determinado componente y producto.
+     *
+     * @param i el índice correspondiente al producto en la lista {@code productos}.
+     * @param j el índice correspondiente al componente en la lista {@code componentes}.
+     * @return el número que necesitamos para un determinado componente y producto.
+     */
+    private static Integer getNumComponentesDelProducto(Integer i, Integer j) {
+        var res = productos.get(i).componentes().get(j);
+        return res != null ? res : 0;
+    }
+
+    /**
+     * Obtiene el tiempo necesario para producir un determinado componente de un producto en la fase de producción.
+     *
+     * @param i el índice correspondiente al producto en la lista {@code productos}.
+     * @param j el índice correspondiente al componente en la lista {@code componentes}.
+     * @return el tiempo necesario para producir un determinado componente de un producto en la fase de producción.
+     */
+    public static Integer getTiempoComponenteDelProductoEnProduccion(Integer i, Integer j) {
+        return getNumComponentesDelProducto(i, j) * getTiempoComponenteEnProduccion(j);
+    }
+
+    /**
+     * Obtiene el tiempo necesario para producir un determinado componente de un producto en la fase manual.
+     *
+     * @param i el índice correspondiente al producto en la lista {@code productos}.
+     * @param j el índice correspondiente al componente en la lista {@code componentes}.
+     * @return el tiempo necesario para producir un determinado componente de un producto en la fase manual.
+     */
+    public static Integer getTiempoComponenteDelProductoEnManual(Integer i, Integer j) {
+        return getNumComponentesDelProducto(i, j) * getTiempoComponenteEnManual(j);
+    }
+
+    // <- OTROS MÉTODOS -> //
+
+    /**
+     * Obtiene el tiempo máximo en la fase de producción.
+     *
+     * @return el tiempo máximo en la fase de producción.
+     */
+    public static Integer getMaxTiempoEnProduccion() {
+        return totalProduccion;
+    }
+
+    /**
+     * Obtiene el tiempo máximo en la fase manual.
+     *
+     * @return el tiempo máximo en la fase manual.
+     */
+    public static Integer getMaxTiempoEnManual() {
+        return totalManual;
+    }
 }

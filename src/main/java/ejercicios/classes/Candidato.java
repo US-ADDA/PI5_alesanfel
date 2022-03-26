@@ -1,25 +1,50 @@
 package main.java.ejercicios.classes;
 
-import java.util.List;
-
 import us.lsi.common.List2;
 
-public record Candidato(String id, List<String> cualidadesPorCandidato, 
-		                List<String> incompatibilidadesPorCandidato, Double sueldo, Integer valoracion) {
-	public static Candidato of(String id, List<String> cualidadesPorCandidato, 
-            List<String> incompatibilidadesPorCandidato,Double sueldo,Integer valoracion) {
-		return new Candidato(id, cualidadesPorCandidato, incompatibilidadesPorCandidato, sueldo, valoracion);
-	}
-	
-	public static Candidato parse(String linea) {
-		var data = linea.split(":")[1].split(";");
-		var cualidadesPorCandidato = List2.parse(data[0], ",", String::trim);
-		List<String> incompatibilidadesPorCandidato = List2.parse(data[3], ",", String::trim);
-		return Candidato.of(linea.split(":")[0], cualidadesPorCandidato, incompatibilidadesPorCandidato, Double.parseDouble(data[1].trim()), Integer.parseInt(data[2].trim()));
-	}
+import java.util.List;
 
-	@Override
-	public String toString() {
-		return id + ": " + cualidadesPorCandidato + "; " + sueldo + "; " + valoracion + "; " + incompatibilidadesPorCandidato;
-	}
+/**
+ * El tipo correspondiente a los candidatos para un trabajo.
+ */
+public record Candidato(String id, List<String> cualidadesPorCandidato,
+                        List<String> incompatibilidadesPorCandidato, Double sueldo, Integer valoracion) {
+
+    /**
+     * Método de factoría de la clase {@code Candidato}.
+     *
+     * @param id                             la clave primaria.
+     * @param cualidadesPorCandidato         las cualidades que posse el candidato.
+     * @param incompatibilidadesPorCandidato contiene las claves primarias de los candidatos con los cuales es incompatible.
+     * @param sueldo                         el sueldo mínimo que va a ganar el candidato.
+     * @param valoracion                     la valoración del candidato.
+     * @return una instancia del tipo {@code Candidato}.
+     */
+    public static Candidato of(String id, List<String> cualidadesPorCandidato,
+                               List<String> incompatibilidadesPorCandidato, Double sueldo, Integer valoracion) {
+        return new Candidato(id, cualidadesPorCandidato, incompatibilidadesPorCandidato, sueldo, valoracion);
+    }
+
+    /**
+     * Método para parsear un candidato siguiendo el siguiente criterio:
+     * <ul>{@code id}: {@code cualidadesPorCandidato}; {@code sueldo}; {@code valoracion}; {@code incompatibilidadesPorCandidato}</ul>
+     * Si hay más de un elemento en alguno de los campos, se separan por comas.
+     *
+     * @param linea la línea que va a ser parseada.
+     * @return una instancia del tipo {@code Candidato}.
+     */
+    public static Candidato parse(String linea) {
+        String[] data = linea.split(":")[1].split(";");
+        String id = linea.split(":")[0];
+        List<String> cualidadesPorCandidato = List2.parse(data[0], ",", String::trim);
+        List<String> incompatibilidadesPorCandidato = List2.parse(data[3], ",", String::trim);
+        Double sueldo = Double.parseDouble(data[1].trim());
+        Integer valoracion = Integer.parseInt(data[2].trim());
+        return Candidato.of(id, cualidadesPorCandidato, incompatibilidadesPorCandidato, sueldo, valoracion);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s: %s; %s; %s; %s", id, cualidadesPorCandidato, sueldo, valoracion, incompatibilidadesPorCandidato);
+    }
 }

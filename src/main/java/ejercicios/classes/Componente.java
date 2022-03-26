@@ -1,24 +1,34 @@
 package main.java.ejercicios.classes;
 
-public record Componente(String id, Integer tiempoProduccion, Integer tiempoElaboracion) {
-	
-	public static Componente of(String id, Integer tiempoProduccion, Integer tiempoElaboracion) {
-		return new Componente(id, tiempoProduccion, tiempoElaboracion);
-	}
-	
-	public static Componente parse(String linea) {
-		var info_c = linea.split(":")[1].split(";");
-		var id = linea.split(":")[0];
-		var t_prod = Integer.parseInt(info_c[0].split("=")[1].trim());
-		var t_elab = Integer.parseInt(info_c[1].split("=")[1].trim());
-		return of(id, t_prod, t_elab);
-	}
+/**
+ * El tipo correspondiente a un componente que, si se ensambla, da lugar a un producto.
+ */
+public record Componente(String id, Integer tiempoProduccion, Integer tiempoManual) {
 
-	@Override
-	public String toString() {
-		return "Componente [ID = " + id + "Tiempo producción = " + tiempoProduccion + " Tiempo elaboración = " + tiempoElaboracion + "]";
-	}
-	
-	
+    /**
+     * Método de factoría de la clase {@code Componente}.
+     *
+     * @param id               la clave primaria.
+     * @param tiempoProduccion tiempo de producción del componente.
+     * @param tiempoManual     tiempo manual del componente.
+     * @return una instancia del tipo {@code Componente}.
+     */
+    public static Componente of(String id, Integer tiempoProduccion, Integer tiempoManual) {
+        return new Componente(id, tiempoProduccion, tiempoManual);
+    }
 
+    /**
+     * Método para parsear un componente siguiendo el siguiente criterio:
+     * <ul>{@code id}: prod={@code tiempoProduccion}; elab={@code tiempoManual};</ul>
+     *
+     * @param linea la línea que va a ser parseada.
+     * @return una instancia del tipo {@code Componente}.
+     */
+    public static Componente parse(String linea) {
+        String[] infoComponente = linea.split(":")[1].split(";");
+        String id = linea.split(":")[0];
+        Integer tiempoProduccion = Integer.parseInt(infoComponente[0].split("=")[1].trim());
+        Integer tiempoManual = Integer.parseInt(infoComponente[1].split("=")[1].trim());
+        return of(id, tiempoProduccion, tiempoManual);
+    }
 }

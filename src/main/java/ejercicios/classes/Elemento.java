@@ -1,26 +1,38 @@
 package main.java.ejercicios.classes;
 
-import java.util.List;
-
 import us.lsi.common.List2;
 
-public record Elemento(String id, Integer tamano, List<String> posiblesContenedores) {
-	public static Elemento of(String id, Integer tamano, List<String> posiblesContenedores) {
-		return new Elemento(id, tamano, posiblesContenedores);
-	}
-	
-	public static Elemento parse(String linea) {
-		var info_e = linea.split(":")[1].split(";");
-		var id = linea.split(": ")[0].trim();
-		var tamano = Integer.parseInt(info_e[0].trim());
-		var posiblesContenedores = List2.parse(info_e[1],",", String::trim);
-		return of(id, tamano, posiblesContenedores);
-	}
+import java.util.List;
 
-	@Override
-	public String toString() {
-		return "Elemento [ID = " + id + "Tamaño = " + tamano + "Posbles contenedores = " + posiblesContenedores + "]";
-	}
-	
-	
+/**
+ * El tipo correspondiente a un elemento que puede ser almacenado en un contenedor.
+ */
+public record Elemento(String id, Integer tamano, List<String> posiblesContenedores) {
+    /**
+     * Método de factoría de la clase {@code Elemento}.
+     *
+     * @param id                   la clave primaria.
+     * @param tamano               el espacio que ocupa el objeto en un contenedor.
+     * @param posiblesContenedores el tipo de los contenedores en los que puede ser almacenado.
+     * @return una instancia del tipo {@code Elemento}.
+     */
+    public static Elemento of(String id, Integer tamano, List<String> posiblesContenedores) {
+        return new Elemento(id, tamano, posiblesContenedores);
+    }
+
+    /**
+     * Método para parsear un contenedor siguiendo el siguiente criterio:
+     * <ul>{code id}: {@code capacidad}; {@code posiblesContenedores}</ul>
+     * Si hay más de un elemento en alguno de los campos, se separan por comas.
+     *
+     * @param linea la línea que va a ser parseada.
+     * @return una instancia del tipo {@code Elemento}.
+     */
+    public static Elemento parse(String linea) {
+        String[] infoElemento = linea.split(":")[1].split(";");
+        String id = linea.split(": ")[0].trim();
+        Integer tamano = Integer.parseInt(infoElemento[0].trim());
+        List<String> posiblesContenedores = List2.parse(infoElemento[1], ",", String::trim);
+        return of(id, tamano, posiblesContenedores);
+    }
 }

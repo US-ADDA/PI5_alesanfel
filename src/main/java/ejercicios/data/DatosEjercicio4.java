@@ -1,68 +1,109 @@
 package main.java.ejercicios.data;
 
-import java.util.List;
-
 import main.java.ejercicios.classes.Contenedor;
 import main.java.ejercicios.classes.Elemento;
 import us.lsi.common.Files2;
 import us.lsi.common.List2;
 
+import java.util.List;
+
+/**
+ * Los datos necesarios para resolver el ejercicio 4.
+ */
 public class DatosEjercicio4 {
 
-	private static List<Elemento> ELEMENTOS;
-	private static List<Contenedor> CONTENEDORES;
-	
-	public static void initDatos(String path) {
-		CONTENEDORES = List2.empty();
-		ELEMENTOS = List2.empty();
-		for (var linea: Files2.linesFromFile(path)) {
-			if (linea.contains("CONT") && !linea.contains("//"))
-				CONTENEDORES.add(Contenedor.parse(linea));
-			else if (linea.contains("E") && !linea.contains("//"))
-				ELEMENTOS.add(Elemento.parse(linea));
-		}
-	}
-	
-	// Métodos para elementos.
-	public static Integer getTamanoElemento(Integer i) {
-		return ELEMENTOS.get(i).tamano();
-	}
-	
-	public static Elemento getElemento(Integer i) {
-		return ELEMENTOS.get(i);
-	}
-	
-	public static Integer getNumElementos() {
-		return ELEMENTOS.size();
-	}
-	
-	// Métodos para contenedores.
-	public static Integer getCapacidadContenedor(Integer j) {
-		return CONTENEDORES.get(j).capacidad();
-	}
-	
-	public static Contenedor getContenedor(Integer j) {
-		return CONTENEDORES.get(j);
-	}
-	
-	public static Integer getNumContenedores() {
-		return CONTENEDORES.size();
-	}
-	
-	// Métodos para ambos.
-	public static Boolean esCompatible(Integer i, Integer j) {
-		return ELEMENTOS.get(i).posiblesContenedores().contains(CONTENEDORES.get(j).tipo());
-	}
-	
-	public static void main(String[] args) {
-		initDatos("data/PI5Ej4DatosEntrada1.txt");
-		System.out.println("Datos elementos -> " + ELEMENTOS);
-		System.out.println("Tamaño del primer elemento -> " + getTamanoElemento(0));
-		System.out.println("Número de elementos -> " + getNumElementos());
-		System.out.println("Datos contenedores -> " + CONTENEDORES);
-		System.out.println("Capacidad del primer contenedor -> " + getCapacidadContenedor(0));
-		System.out.println("Número de contenedores -> " + getNumContenedores());
-		System.out.println("¿El primer elemento es compatible con el primer contenedor? -> " + (esCompatible(0, 0) ? "Si": "NO"));
-		
-	}
+    private static List<Elemento> elementos;
+    private static List<Contenedor> contenedores;
+
+    /**
+     * Carga los datos de un fichero.
+     *
+     * @param path la ruta del fichero.
+     */
+    public static void initDatos(String path) {
+        contenedores = List2.empty();
+        elementos = List2.empty();
+        for (String linea : Files2.linesFromFile(path)) {
+            if (linea.contains("CONT") && !linea.contains("//"))
+                contenedores.add(Contenedor.parse(linea));
+            else if (linea.contains("E") && !linea.contains("//"))
+                elementos.add(Elemento.parse(linea));
+        }
+    }
+
+    // <- MÉTODOS PARA ELEMENTOS -> //
+
+    /**
+     * Obtiene el espacio que ocupa el elemento en un contenedor.
+     *
+     * @param i el índice correspondiente al elemento en la lista {@code elementos}.
+     * @return el tamaño del elemento.
+     */
+    public static Integer getTamanoElemento(Integer i) {
+        return elementos.get(i).tamano();
+    }
+
+    /**
+     * Obtiene una instancia del tipo {@link Elemento}.
+     *
+     * @param i el índice correspondiente al elemento en la lista {@code elementos}.
+     * @return una instancia del tipo {@link Elemento}.
+     */
+    public static Elemento getElemento(Integer i) {
+        return elementos.get(i);
+    }
+
+    /**
+     * Obtiene el número de elementos que disponemos.
+     *
+     * @return el número de memorias que disponemos.
+     */
+    public static Integer getNumElementos() {
+        return elementos.size();
+    }
+
+    // <- MÉTODOS PARA CONTENEDORES -> //
+
+    /**
+     * Obtiene la capacidad que posee el contenedor.
+     *
+     * @param j el índice correspondiente al contenedor en la lista {@code contenedores}.
+     * @return la capacidad del contenedor.
+     */
+    public static Integer getCapacidadContenedor(Integer j) {
+        return contenedores.get(j).capacidad();
+    }
+
+    /**
+     * Obtiene una instancia del tipo {@link Contenedor}.
+     *
+     * @param j el índice correspondiente al contenedor en la lista {@code contenedores}.
+     * @return una instancia del tipo {@link Contenedor}.
+     */
+    public static Contenedor getContenedor(Integer j) {
+        return contenedores.get(j);
+    }
+
+    /**
+     * Obtiene el número de contenedores que disponemos.
+     *
+     * @return el número de contenedores que disponemos.
+     */
+    public static Integer getNumContenedores() {
+        return contenedores.size();
+    }
+
+
+// Métodos para ambos.
+
+    /**
+     * Devuelve {@code true} si el elemento es compatible con el contenedor, en caso contrario, devuelve {@code false}.
+     *
+     * @param i el índice correspondiente al elemento en la lista {@code elementos}.
+     * @param j el índice correspondiente al contenedor en la lista {@code contenedores}.
+     * @return {@link Boolean} indicando si el elemento puede ser almacenado en el contenedor.
+     */
+    public static Boolean esCompatible(Integer i, Integer j) {
+        return elementos.get(i).posiblesContenedores().contains(contenedores.get(j).tipo());
+    }
 }

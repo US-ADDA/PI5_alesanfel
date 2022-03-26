@@ -1,88 +1,80 @@
 package test.java.tools;
 
-import java.io.File;
+import us.lsi.gurobi.GurobiLp;
+import us.lsi.gurobi.GurobiSolution;
+import us.lsi.solve.AuxGrammar;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.function.Consumer;
 
-import us.lsi.common.Files2;
-import us.lsi.common.String2;
-import us.lsi.gurobi.GurobiLp;
-import us.lsi.gurobi.GurobiSolution;
-import us.lsi.solve.AuxGrammar;
-
+/**
+ * Clase que permite testear los problemas programación lineal entera.
+ */
 public class TestPLE {
-	
-	private String lsi_path,gurobi_path;
-	private Consumer<String> init;
-	private Consumer<GurobiSolution> cs;
-	private Class<?> classIdentifier;
-	private PrintStream consola, ps_res;
-	private Integer c;
-	
-	private TestPLE(String out_path, String lsi_path, String gurobi_path, Consumer<String> init, Consumer<GurobiSolution> cs, Class<?> classIdentifier) {
-		this.lsi_path = lsi_path;
-		this.gurobi_path = gurobi_path;
-		this.init = init;
-		this.classIdentifier = classIdentifier;
-		this.cs = cs;
-		this.c = 1;
-		
-		consola = System.out;
-		try {
-			ps_res = new PrintStream(new File(out_path));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		ps_res.append(String.format("%s\n\n", "Resultados de los test:"));
-	}
-	
-	public static TestPLE of(String out_path, String lsi_path, String gurobi_path, Consumer<String> init, Consumer<GurobiSolution> cs, Class<?> classIdentifier) {
-		return new TestPLE(out_path, lsi_path, gurobi_path, init, cs, classIdentifier);
-	}
-	
-	public void testLine(String ... data_path) {
-		for (var i = 0; i < data_path.length; i++) {
-			var ls = Files2.linesFromFile(data_path[i]);
-			for (var data: ls) {
-				init.accept(data);
-				var new_gurobi_path = gurobi_path.replace(".lp", "-" + c +".lp");
-				c++;
-				System.setOut(consola);
-				try {
-					AuxGrammar.generate(classIdentifier, lsi_path, new_gurobi_path);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				GurobiSolution gs = GurobiLp.gurobi(new_gurobi_path);
-				System.setOut(ps_res);
-				String2.toConsole("\nSolución PLE:%s", gs.toString((s,d) -> d>0).substring(2));
-				cs.accept(gs);		
-			}
-		}
-		System.setOut(consola);
-	}
-	
-	
-	public void testFile(String ... data_path) {
-		for (var i=0;i < data_path.length; i++) {
-			init.accept(data_path[i]);
-			var new_gurobi_path = gurobi_path.replace(".lp", "-" + c +".lp");
-			c++;
-			
-			try {
-				AuxGrammar.generate(classIdentifier, lsi_path, new_gurobi_path);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			GurobiSolution gs = GurobiLp.gurobi(new_gurobi_path);
-			// String2.toConsole("\nSolución PLE:%s", gs.toString((s,d) -> d>0).substring(2));
-			System.setOut(ps_res);
-			cs.accept(gs);	
-			System.setOut(consola);
-		}
-		//System.setOut(consola);
-		
-	}
+
+    private final String lsiPath, gurobiPath;
+    private final Consumer<String> init;
+    private final Consumer<GurobiSolution> consumerSolution;
+    private final Class<?> classIdentifier;
+    private final PrintStream consola;
+    private PrintStream result;
+    private Integer c;
+
+    private TestPLE(String out_path, String lsi_path, String gurobi_path, Consumer<String> init, Consumer<GurobiSolution> cs, Class<?> classIdentifier) {
+        this.lsiPath = lsi_path;
+        this.gurobiPath = gurobi_path;
+        this.init = init;
+        this.classIdentifier = classIdentifier;
+        this.consumerSolution = cs;
+        this.c = 1;
+
+        consola = System.out;
+        try {
+            result = new PrintStream(out_path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        result.append(String.format("%s\n\n", "Resultados de los test:"));
+    }
+
+
+    /**
+     * Método de factoría de la clase {@link TestPLE}.
+     *
+     * @param outPath          ruta donde se almacenará la solución del ejercicio.
+     * @param lsiPath          ruta donde se encuentra la solución del problema en formato lsi.
+     * @param gurobiPath       ruta donde se va a almacenar la solución del problema en formato pli.
+     * @param init             para poder cargar los datos.
+     * @param consumerSolution función que a partir de una solución de gurobi genera lo que se va a mostrar.
+     * @param classIdentifier  la clase donde se encuentran los métodos utilizados en el lsi.
+     * @return un objeto que permite testear un determinado ejercicio.
+     */
+    public static TestPLE of(String outPath, String lsiPath, String gurobiPath, Consumer<String> init, Consumer<GurobiSolution> consumerSolution, Class<?> classIdentifier) {
+        return new TestPLE(outPath, lsiPath, gurobiPath, init, consumerSolution, classIdentifier);
+    }
+
+    /**
+     * Da los datos del problema con el fichero entero.
+     *
+     * @param data_path la ruta donde se encuentra los datos.
+     */
+    public void testFile(String... data_path) {
+        for (String s : data_path) {
+            init.accept(s);
+            var new_gurobi_path = gurobiPath.replace(".lp", "-" + c + ".lp");
+            c++;
+
+            try {
+                AuxGrammar.generate(classIdentifier, lsiPath, new_gurobi_path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            GurobiSolution gs = GurobiLp.gurobi(new_gurobi_path);
+            System.setOut(result);
+            consumerSolution.accept(gs);
+            System.setOut(consola);
+        }
+    }
 }

@@ -8,19 +8,26 @@ import test.java.tools.TestPLE;
 
 public class TestEjercicio4 {
 
-	private static String data_path = "data/PI5Ej4DatosEntrada",out_path_ple = "out/ple/ejercicio4.txt",
-			lsi_path = "models/lsi/ejercicio4.lsi", gurobi_path = "models/gurobi/ejercicio4.lp",
-			out_path_gen = "out/gen/ejercicio4.txt";
-	
-	private static Integer population_size = 1000, num_generations = 1000;
-	
-	public static void main(String[] args) {
-		String[] data = {data_path+1+".txt", data_path+2+".txt", data_path+3+".txt"};
-		
-		TestPLE.of(out_path_ple,lsi_path,gurobi_path,
-				DatosEjercicio4::initDatos,SolucionEjercicio4::print,
-				DatosEjercicio4.class).testFile(data);
-		
-		TestGEN.of(out_path_gen, population_size, num_generations, GenEjercicio4::create).testFile(data);
-	}
+    // Ambos
+    private static final String dataPath = "data/PI5Ej4DatosEntrada";
+
+    // PLE
+    private static final String outPathPle = "out/ple/ejercicio4.txt";
+    private static final String lsiPath = "models/lsi/ejercicio4.lsi";
+    private static final String gurobiPath = "models/gurobi/ejercicio4.lp";
+
+    // Genéticos
+    private static final String outPathGen = "out/gen/ejercicio4.txt";
+    private static final Integer population_size = 1000;
+    private static final Integer num_generations = 1000;
+
+    public static void main(String[] args) {
+        String[] data = {dataPath + 1 + ".txt", dataPath + 2 + ".txt", dataPath + 3 + ".txt"};
+
+        TestPLE.of(outPathPle, lsiPath, gurobiPath,
+                DatosEjercicio4::initDatos, SolucionEjercicio4::print,
+                DatosEjercicio4.class).testFile(data);
+
+        TestGEN.of(outPathGen, population_size, num_generations, GenEjercicio4::create).testFile(data);
+    }
 }

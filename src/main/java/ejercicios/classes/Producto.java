@@ -3,26 +3,46 @@ package main.java.ejercicios.classes;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * El tipo correspondiente a un producto formado con distintos componentes.
+ */
 public record Producto(String id, Integer precio, Map<Integer, Integer> componentes, Integer maxUnidades) {
-	
-	public static Producto of(String id,Integer precio, Map<Integer, Integer> componentes, Integer maxUnidades) {
-		return new Producto(id, precio, componentes, maxUnidades);
-	}
-	
-	public static Producto parse(String linea) {
-		var info_p = linea.split(">")[1].split(";");
-		var map = new HashMap<Integer, Integer>();
-		var num_c = info_p[1].split("=")[1].split(",");
-		for (var i = 0; i < num_c.length; i++) {
-			var data = num_c[i].split(":");
-			String aux_key = data[0].replaceAll("\\(C", "");
-			while(aux_key.charAt(0)=='0') 
-				aux_key = aux_key.substring(1, aux_key.length());
-			var key = Integer.parseInt(aux_key);
-			var value = Integer.parseInt(data[1].replaceAll("\\)", ""));
-			map.put(key-1, value);
-		}
-		return Producto.of(linea.split(">")[0].replaceAll(" -", ""), Integer.parseInt(info_p[0].split("=")[1].trim()),
-				map, Integer.parseInt(info_p[2].split("=")[1].trim()));
-	}
+
+    /**
+     * Método de factoría de la clase {@code Producto}.
+     *
+     * @param id          la clave primaria.
+     * @param precio      el precio del producto.
+     * @param componentes los componentes necesarios para elaborar el producto.
+     * @param maxUnidades la cantidad máxima de unidades que se puede llegar a producir del producto.
+     * @return una instancia del tipo {@code Producto}.
+     */
+    public static Producto of(String id, Integer precio, Map<Integer, Integer> componentes, Integer maxUnidades) {
+        return new Producto(id, precio, componentes, maxUnidades);
+    }
+
+    /**
+     * Método para parsear un candidato siguiendo el siguiente criterio:
+     * <ul>{@code id} -> precio={@code precio}; comp=({@code idComponente}: {@code numComponente}); max_u={@code maxUnidades}</ul>
+     * Si hay más de un elemento en alguno de los campos, se separan por comas.
+     *
+     * @param linea la línea que va a ser parseada.
+     * @return una instancia del tipo {@code Producto}.
+     */
+    public static Producto parse(String linea) {
+        String[] infoProducto = linea.split(">")[1].split(";");
+        Map<Integer, Integer> map = new HashMap<>();
+        String[] componentesEnProducto = infoProducto[1].split("=")[1].split(",");
+        for (String numComponente : componentesEnProducto) {
+            String[] data = numComponente.split(":");
+            String auxKey = data[0].replaceAll("\\(C", "");
+            while (auxKey.charAt(0) == '0')
+                auxKey = auxKey.substring(1);
+            int key = Integer.parseInt(auxKey);
+            Integer value = Integer.parseInt(data[1].replaceAll("\\)", ""));
+            map.put(key - 1, value);
+        }
+        return Producto.of(linea.split(">")[0].replaceAll(" -", ""), Integer.parseInt(infoProducto[0].split("=")[1].trim()),
+                map, Integer.parseInt(infoProducto[2].split("=")[1].trim()));
+    }
 }
