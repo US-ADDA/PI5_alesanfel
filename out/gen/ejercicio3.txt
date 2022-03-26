@@ -2,37 +2,37 @@ Resultados de los test de los test ejemplo:
 ____________________________________________________________________________________________________
 ____________________________________________________________________________________________________
 Productos selecionados:
-P03: 6 unidades
-P07: 19 unidades
-Beneficio: 1810.0
+P03: 8 unidades
+P04: 5 unidades
+P07: 12 unidades
+Beneficio: 1630.0
 ____________________________________________________________________________________________________
 ____________________________________________________________________________________________________
 Productos selecionados:
-P02: 1 unidades
-P03: 21 unidades
-P04: 1 unidades
-P08: 1 unidades
-P11: 6 unidades
-P13: 8 unidades
-P20: 1 unidades
-Beneficio: 29199.0
+P02: 2 unidades
+P03: 20 unidades
+P11: 2 unidades
+P13: 16 unidades
+Beneficio: 31100.0
 ____________________________________________________________________________________________________
 ____________________________________________________________________________________________________
 Productos selecionados:
-P03: 4 unidades
-P05: 1 unidades
-P09: 52 unidades
-P10: 1 unidades
-P11: 3 unidades
-P15: 5 unidades
-P23: 13 unidades
-P25: 4 unidades
-P27: 29 unidades
-P29: 4 unidades
-P30: 2 unidades
-P38: 3 unidades
-P42: 1 unidades
+P02: 2 unidades
+P03: 1 unidades
+P09: 173 unidades
+P10: 2 unidades
+P11: 1 unidades
+P14: 4 unidades
+P16: 3 unidades
+P27: 8 unidades
+P30: 1 unidades
+P31: 1 unidades
+P32: 2 unidades
 P52: 184 unidades
-P78: 157 unidades
-Beneficio: 163649.0
+P63: 1 unidades
+P69: 2 unidades
+P77: 24 unidades
+P78: 286 unidades
+P94: 1 unidades
+Beneficio: 231484.0
 ____________________________________________________________________________________________________
