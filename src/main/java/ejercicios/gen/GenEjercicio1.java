@@ -2,8 +2,10 @@ package main.java.ejercicios.gen;
 
 import main.java.ejercicios.data.DatosEjercicio1;
 import main.java.ejercicios.solution.SolucionEjercicio1;
+import main.java.ejercicios.solution.SolucionEjercicio5;
 import us.lsi.ag.ValuesInRangeData;
 import us.lsi.ag.agchromosomes.ChromosomeFactory.ChromosomeType;
+import us.lsi.common.List2;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +47,7 @@ public class GenEjercicio1 implements ValuesInRangeData<Integer, SolucionEjercic
 
         double goal = 0, error = 0;
         Map<Integer, Integer> map = new HashMap<>();
-
+        
         for (int i = 0; i < DatosEjercicio1.getNumFichero(); i++) {
             if (value.get(i) < DatosEjercicio1.getNumMemoria()) {
                 // Maximizar la capacidad de los ficheros.

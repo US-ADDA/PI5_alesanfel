@@ -94,7 +94,7 @@ public class DatosEjercicio4 {
     }
 
 
-// Métodos para ambos.
+    // <- MÉTODOS PARA AMBOS -> //
 
     /**
      * Devuelve {@code true} si el elemento es compatible con el contenedor, en caso contrario, devuelve {@code false}.

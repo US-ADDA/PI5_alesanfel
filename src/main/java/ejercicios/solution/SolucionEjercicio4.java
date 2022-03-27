@@ -8,6 +8,7 @@ import us.lsi.common.Map2;
 import us.lsi.common.String2;
 import us.lsi.gurobi.GurobiSolution;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +25,11 @@ public class SolucionEjercicio4 {
         elementosPorContenedor = Map2.empty();
         for (var data : vbles.entrySet()) {
             if (data.getValue() > 0 && data.getKey().startsWith("x")) {
-                var info_x = data.getKey().split("_");
-                var value = DatosEjercicio4.getElemento(Integer.parseInt(info_x[1]));
-                var key = DatosEjercicio4.getContenedor(Integer.parseInt(info_x[2]));
+                String[] infoX = data.getKey().split("_");
+                Elemento value = DatosEjercicio4.getElemento(Integer.parseInt(infoX[1]));
+                Contenedor key = DatosEjercicio4.getContenedor(Integer.parseInt(infoX[2]));
                 if (elementosPorContenedor.containsKey(key))
-                    elementosPorContenedor.get(key).add(value);
+                	elementosPorContenedor.get(key).add(value);      
                 else
                     elementosPorContenedor.put(key, List2.of(value));
             }
@@ -37,10 +38,10 @@ public class SolucionEjercicio4 {
 
     private SolucionEjercicio4(List<Integer> ls) {
         elementosPorContenedor = new HashMap<>();
-        for (var i = 0; i < ls.size(); i++) {
+        for (int i = 0; i < ls.size(); i++) {
             if (ls.get(i) < DatosEjercicio4.getNumContenedores()) {
-                var value = DatosEjercicio4.getElemento(i);
-                var key = DatosEjercicio4.getContenedor(ls.get(i));
+                Elemento value = DatosEjercicio4.getElemento(i);
+                Contenedor key = DatosEjercicio4.getContenedor(ls.get(i));
                 if (elementosPorContenedor.containsKey(key))
                     elementosPorContenedor.get(key).add(value);
                 else
@@ -83,7 +84,7 @@ public class SolucionEjercicio4 {
         var cadenaContenedores = elementosPorContenedor.entrySet().stream()
                 .map(entry -> entry.getKey().id() + ": " + entry.getValue().stream().map(Elemento::id).toList())
                 .reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
-        return String.format("Reparto obtenido:\n%s", cadenaContenedores);
+        return String.format("Reparto obtenido:\n%sNúmero elementos:%s", cadenaContenedores, elementosPorContenedor.entrySet().stream().map(Map.Entry::getValue).flatMap(List::stream).count());
     }
 
 

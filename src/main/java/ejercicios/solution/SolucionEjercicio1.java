@@ -37,7 +37,7 @@ public class SolucionEjercicio1 {
     private SolucionEjercicio1(List<Integer> ls) {
         numFicheros = 0;
         memorias = Map2.empty();
-        for (var i = 0; i < ls.size(); i++) {
+        for (int i = 0; i < ls.size(); i++) {
             if (ls.get(i) < DatosEjercicio1.getNumMemoria()) {
                 numFicheros++;
                 String key = DatosEjercicio1.getMemoria(ls.get(i)).id();
@@ -77,7 +77,7 @@ public class SolucionEjercicio1 {
      * @param gs la solución que ha dado gurobi.
      */
     public static void print(GurobiSolution gs) {
-        String2.toConsole("%s\n%s\n%s", String2.linea(), create(gs), String2.linea());
+        String2.toConsole("%s\n%s\n%s\n", String2.linea(), create(gs), String2.linea());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class SolucionEjercicio1 {
         String cadenaMemorias = memorias.entrySet().stream()
                 .map(entry -> entry.getKey() + ": " + entry.getValue())
                 .reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
-        return String.format("Reparto obtenido:\n%s\nNúmero de archivos:%s", cadenaMemorias, numFicheros);
+        return String.format("Reparto obtenido:\n%sNúmero de archivos:%s", cadenaMemorias, numFicheros);
     }
 
 

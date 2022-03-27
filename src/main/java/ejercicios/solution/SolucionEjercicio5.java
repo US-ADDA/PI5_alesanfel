@@ -20,7 +20,7 @@ public class SolucionEjercicio5 {
         SimpleWeightedGraph<Ciudad, Carretera> grafo = DatosEjercicio5.getGrafo();
         distancia = 0.;
         ciudades = List2.of(DatosEjercicio5.getOrigen());
-        for (var i = 0; i < ls.size() - 1; i++) {
+        for (int i = 0; i < ls.size() - 1; i++) {
             Ciudad source = DatosEjercicio5.getCiudad(ls.get(i)),
                     target = DatosEjercicio5.getCiudad(ls.get(i + 1));
             if (grafo.containsEdge(source, target)) {
@@ -43,7 +43,7 @@ public class SolucionEjercicio5 {
 
     @Override
     public String toString() {
-        return String.format("Predicado: Ciudad con más de %s hab. y Carretera con más de %s kms:\n%s; Kms: %.1f",
+        return String.format("Predicado:  %s hab. y %s kms:\n%s; Kms: %.1f",
                 DatosEjercicio5.getHabitantes(), DatosEjercicio5.getDistancia(), ciudades, distancia);
     }
 }

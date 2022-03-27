@@ -19,14 +19,14 @@ public class TestEjercicio1 {
     // Genéticos
     private static final String outPathGen = "out/gen/ejercicio1.txt";
     private static final Integer populationSize = 1000;
-    private static final Integer numGenerations = 2000;
+    private static final Integer numGenerations = 1000;
 
     public static void main(String[] args) {
         String[] data = {dataPath + 1 + ".txt", dataPath + 2 + ".txt", dataPath + 3 + ".txt"};
 
-        TestPLE.of(outPathPle, lsiPath, gurobiPath,
-                DatosEjercicio1::initDatos, SolucionEjercicio1::print,
-                DatosEjercicio1.class).testFile(data);
+        //TestPLE.of(outPathPle, lsiPath, gurobiPath,
+        //        DatosEjercicio1::initDatos, SolucionEjercicio1::print,
+        //        DatosEjercicio1.class).testFile(data);
 
         TestGEN.of(outPathGen, populationSize, numGenerations, GenEjercicio1::create).testFile(data);
     }

@@ -25,8 +25,8 @@ public class SolucionEjercicio2 {
         gasto = 0.;
         for (var data : vbles.entrySet()) {
             if (data.getValue() > 0 && data.getKey().startsWith("x")) {
-                var info_x = Integer.parseInt(data.getKey().split("_")[1]);
-                var candidato = DatosEjercicio2.getCandidato(info_x);
+                int infoX = Integer.parseInt(data.getKey().split("_")[1]);
+                Candidato candidato = DatosEjercicio2.getCandidato(infoX);
                 candidatos.add(candidato);
                 valoracionTotal += candidato.valoracion();
                 gasto += candidato.sueldo();
@@ -40,9 +40,9 @@ public class SolucionEjercicio2 {
         valoracionMedia = 0.;
         valoracionTotal = 0.;
         gasto = 0.;
-        for (var i = 0; i < ls.size(); i++) {
+        for (int i = 0; i < ls.size(); i++) {
             if (ls.get(i) == 1) {
-                var candidato = DatosEjercicio2.getCandidato(i);
+                Candidato candidato = DatosEjercicio2.getCandidato(i);
                 candidatos.add(candidato);
                 valoracionTotal += candidato.valoracion();
                 gasto += candidato.sueldo();
@@ -83,7 +83,7 @@ public class SolucionEjercicio2 {
     @Override
     public String toString() {
         String cadenaCandidatos = candidatos.stream().map(Candidato::toString).reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
-        return String.format("Candidatos Seleccionados:\n%sValoracion total: %.1f; Gasto: %.1f; V. media: %.1f", cadenaCandidatos, valoracionTotal, gasto, valoracionMedia);
+        return String.format("Candidatos Seleccionados:\n%sValoración total: %.1f; Gasto: %.1f; V. media: %.1f", cadenaCandidatos, valoracionTotal, gasto, valoracionMedia);
     }
 
 

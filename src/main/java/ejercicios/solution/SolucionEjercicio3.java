@@ -36,10 +36,10 @@ public class SolucionEjercicio3 {
     private SolucionEjercicio3(List<Integer> ls) {
         productos = List2.empty();
         beneficio = 0.;
-        for (var i = 0; i < ls.size(); i++) {
-            var value = ls.get(i);
+        for (int i = 0; i < ls.size(); i++) {
+            int value = ls.get(i);
             if (value > 0) {
-                var producto = DatosEjercicio3.getProducto(i);
+                Producto producto = DatosEjercicio3.getProducto(i);
                 productos.add(Pair.of(producto, value * 1.0));
                 beneficio += producto.precio() * value;
             }
@@ -80,7 +80,7 @@ public class SolucionEjercicio3 {
         String cadenaProductos = productos.stream()
                 .map(pair -> pair.first().id() + ": " + Math.round(pair.second()) + " unidades")
                 .reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
-        return String.format("Productos selecionados:\n%sBeneficio: %s", cadenaProductos, beneficio);
+        return String.format("Productos seleccionados:\n%sBeneficio: %s", cadenaProductos, beneficio);
     }
 
 

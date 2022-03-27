@@ -34,7 +34,7 @@ public class TestGEN<R extends ChromosomeData<E, S>, E, S> {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        result.append(String.format("%s\n%s\n", "Resultados de los test de los test ejemplo:", String2.linea()));
+        result.append(String.format("%s\n\n", "Resultados de los test de los test ejemplo:"));
     }
 
     /**
@@ -66,7 +66,7 @@ public class TestGEN<R extends ChromosomeData<E, S>, E, S> {
             AlgoritmoAG<E, S> alg = AlgoritmoAG.of(create.apply(line));
             alg.ejecuta();
             System.setOut(result);
-            String2.toConsole("%s\n%s\n%s", String2.linea(), alg.bestSolution(), String2.linea());
+            String2.toConsole("%s\n%s\n%s\n", String2.linea(), alg.bestSolution(), String2.linea());
             System.setOut(consola);
         }
     }
