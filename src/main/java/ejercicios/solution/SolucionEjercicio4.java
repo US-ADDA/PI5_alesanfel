@@ -76,7 +76,7 @@ public class SolucionEjercicio4 {
      * @param gs la solución que ha dado gurobi.
      */
     public static void print(GurobiSolution gs) {
-        String2.toConsole("%s\n%s%s\n", String2.linea(), create(gs), String2.linea());
+        String2.toConsole("%s\n%s\n%s\n", String2.linea(), create(gs), String2.linea());
     }
 
     @Override
