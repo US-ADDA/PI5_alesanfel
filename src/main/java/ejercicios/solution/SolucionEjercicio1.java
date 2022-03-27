@@ -21,7 +21,7 @@ public class SolucionEjercicio1 {
     private SolucionEjercicio1(Double vo, Map<String, Double> vbles) {
         numFicheros = vo.intValue();
         memorias = Map2.empty();
-        for (var data : vbles.entrySet()) {
+        for (Map.Entry<String, Double> data : vbles.entrySet()) {
             if (data.getValue() > 0 && data.getKey().startsWith("x")) {
                 String[] info_x = data.getKey().split("_");
                 String key = DatosEjercicio1.getMemoria(Integer.parseInt(info_x[2])).id();
@@ -87,8 +87,6 @@ public class SolucionEjercicio1 {
                 .reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
         return String.format("Reparto obtenido:\n%sNúmero de archivos:%s", cadenaMemorias, numFicheros);
     }
-
-
 }
 	
 

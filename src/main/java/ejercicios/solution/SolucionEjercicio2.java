@@ -85,6 +85,4 @@ public class SolucionEjercicio2 {
         String cadenaCandidatos = candidatos.stream().map(Candidato::toString).reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
         return String.format("Candidatos Seleccionados:\n%sValoración total: %.1f; Gasto: %.1f; V. media: %.1f", cadenaCandidatos, valoracionTotal, gasto, valoracionMedia);
     }
-
-
 }

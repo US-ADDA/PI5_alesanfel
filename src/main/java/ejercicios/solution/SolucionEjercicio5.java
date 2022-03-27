@@ -47,3 +47,4 @@ public class SolucionEjercicio5 {
                 DatosEjercicio5.getHabitantes(), DatosEjercicio5.getDistancia(), ciudades, distancia);
     }
 }
+

@@ -24,9 +24,9 @@ public class TestEjercicio1 {
     public static void main(String[] args) {
         String[] data = {dataPath + 1 + ".txt", dataPath + 2 + ".txt", dataPath + 3 + ".txt"};
 
-        //TestPLE.of(outPathPle, lsiPath, gurobiPath,
-        //        DatosEjercicio1::initDatos, SolucionEjercicio1::print,
-        //        DatosEjercicio1.class).testFile(data);
+        TestPLE.of(outPathPle, lsiPath, gurobiPath,
+                DatosEjercicio1::initDatos, SolucionEjercicio1::print,
+                DatosEjercicio1.class).testFile(data);
 
         TestGEN.of(outPathGen, populationSize, numGenerations, GenEjercicio1::create).testFile(data);
     }

@@ -9,6 +9,7 @@ import us.lsi.gurobi.GurobiSolution;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Clase que permite mostrar correctamente las soluciones del ejercicio 3, tanto para programación lineal entera,
@@ -22,7 +23,7 @@ public class SolucionEjercicio3 {
     private SolucionEjercicio3(Map<String, Double> vbles) {
         productos = List2.empty();
         beneficio = 0.;
-        for (var data : vbles.entrySet()) {
+        for (Entry<String, Double> data : vbles.entrySet()) {
             var value = data.getValue();
             if (value > 0 && data.getKey().startsWith("x")) {
                 var info_x = Integer.parseInt(data.getKey().split("_")[1]);
@@ -82,6 +83,4 @@ public class SolucionEjercicio3 {
                 .reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
         return String.format("Productos seleccionados:\n%sBeneficio: %s", cadenaProductos, beneficio);
     }
-
-
 }

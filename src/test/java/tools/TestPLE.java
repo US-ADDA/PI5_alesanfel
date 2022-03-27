@@ -39,7 +39,6 @@ public class TestPLE {
         result.append(String.format("%s\n\n", "Resultados de los test:"));
     }
 
-
     /**
      * Método de factoría de la clase {@link TestPLE}.
      *

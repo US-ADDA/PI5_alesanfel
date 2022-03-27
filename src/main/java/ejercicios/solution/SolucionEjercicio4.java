@@ -8,10 +8,10 @@ import us.lsi.common.Map2;
 import us.lsi.common.String2;
 import us.lsi.gurobi.GurobiSolution;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Clase que permite mostrar correctamente las soluciones del ejercicio 4, tanto para programación lineal entera,
@@ -23,13 +23,13 @@ public class SolucionEjercicio4 {
 
     private SolucionEjercicio4(Map<String, Double> vbles) {
         elementosPorContenedor = Map2.empty();
-        for (var data : vbles.entrySet()) {
+        for (Entry<String, Double> data : vbles.entrySet()) {
             if (data.getValue() > 0 && data.getKey().startsWith("x")) {
                 String[] infoX = data.getKey().split("_");
                 Elemento value = DatosEjercicio4.getElemento(Integer.parseInt(infoX[1]));
                 Contenedor key = DatosEjercicio4.getContenedor(Integer.parseInt(infoX[2]));
                 if (elementosPorContenedor.containsKey(key))
-                	elementosPorContenedor.get(key).add(value);      
+                    elementosPorContenedor.get(key).add(value);
                 else
                     elementosPorContenedor.put(key, List2.of(value));
             }
@@ -84,8 +84,6 @@ public class SolucionEjercicio4 {
         var cadenaContenedores = elementosPorContenedor.entrySet().stream()
                 .map(entry -> entry.getKey().id() + ": " + entry.getValue().stream().map(Elemento::id).toList())
                 .reduce("", (ac, nx) -> String.format("%s%s\n", ac, nx));
-        return String.format("Reparto obtenido:\n%sNúmero elementos:%s", cadenaContenedores, elementosPorContenedor.entrySet().stream().map(Map.Entry::getValue).flatMap(List::stream).count());
+        return String.format("Reparto obtenido:\n%sNúmero elementos: %s", cadenaContenedores, elementosPorContenedor.values().stream().mapToLong(List::size).sum());
     }
-
-
 }
