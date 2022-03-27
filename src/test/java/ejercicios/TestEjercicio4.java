@@ -28,6 +28,6 @@ public class TestEjercicio4 {
                 DatosEjercicio4::initDatos, SolucionEjercicio4::print,
                 DatosEjercicio4.class).testFile(data);
 
-        TestGEN.of(outPathGen, population_size, num_generations, GenEjercicio4::create).testFile(data);
+        //TestGEN.of(outPathGen, population_size, num_generations, GenEjercicio4::create).testFile(data);
     }
 }
